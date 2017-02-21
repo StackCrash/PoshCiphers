@@ -20,7 +20,7 @@
   Copyright = '(c) 2017 . All rights reserved.'
 
   # Description of the functionality provided by this module
-  Description = 'Powershell module for enciphering and deciphering common Caesar and Vigenere ciphers.'
+  Description = 'Powershell module for enciphering and deciphering common Caesar (Rotation) and Vigenere ciphers.'
 
   # Minimum version of the Windows PowerShell engine required by this module
   PowerShellVersion = '3.0'

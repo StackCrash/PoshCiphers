@@ -1,0 +1,103 @@
+Function Get-VigDecipher
+{
+    <# 
+        .Synopsis
+        Deciphers message(s) that has been enciphered with a Vigenere cipher.
+
+        .Description
+        Deciphers message(s) that has been enciphered with a Vigenere cipher.
+
+        .Parameter Ciphertext
+        The enciphered message(s) to be deciphered.
+
+        .Parameter Key
+        The key to use in the deciphering.
+        Note: The key is case-insensitive.
+        
+        .Parameter Strip
+        Removes whitespaces from the ciphertext message(s).
+
+        .Example
+        Get-VigDecipher -Ciphertext "Txselzv" -Key "password"
+
+        Plaintext Ciphertext Key
+        --------- ---------- ---
+        Example   Txselzv    password
+
+        .Example
+        Get-VigDecipher -Ciphertext "Txse lzvZ xtzK loth h" -Key "password" -Strip
+
+        Plaintext         Ciphertext        Key
+        ---------         ----------        ---
+        ExampleWithSpaces TxselzvZxtzKlothh password
+
+        .LINK
+        https://github.com/stackcrash/PoshCiphers
+    #>
+    [CmdletBinding()]
+    Param
+    (
+        [Parameter(Mandatory = $True, Position=0, ValueFromPipeline=$True)]
+        [String[]] $Ciphertext,
+        [Parameter(Mandatory = $True, Position=1)]
+        [String] $Key,
+        [Parameter()]
+        [Switch]$Strip
+    )
+    Begin
+    {
+        #Create an array list to store results in
+        $DecipheredMessages = New-Object System.Collections.ArrayList
+    }
+    Process
+    {
+        #Loop through each ciphertext
+        ForEach ($Message in $Ciphertext)
+        {
+            #Create an array list to store deciphered characters in
+            $Deciphered = New-Object System.Collections.ArrayList
+            #Get the Vigenere table for the key
+            $Filter = Get-VigFilter -Key $Key | ForEach-Object { (26 - $_) % 26 }
+            #Set the index value to use with the filter
+            $FilterIndex = 0
+            If ($Strip)
+            {
+                #Remove whitespaces
+                $Message = $Message -replace '\s', ''
+            }
+            #Loop though each character in the message
+            ForEach ($Character in $Message.ToCharArray())
+            {
+                #Convert the character to ASCII code
+                Switch ([Byte]$Character)
+                {
+                    #Encipher uppercase characters
+                    {$_ -ge 65 -and $_ -le 90}
+                    {
+                        $Deciphered.Add([Char](($_ - 65 + $Filter[$FilterIndex % $Filter.Length]) % 26 + 65)) | Out-Null
+                        $FilterIndex += 1
+                    }
+                    #Encipher lowercase characters
+                    {$_ -ge 97 -and $_ -le 122}
+                    {
+                        $Deciphered.Add([Char](($_ - 97 + $Filter[$FilterIndex % $Filter.Length]) % 26 + 97)) | Out-Null
+                        $FilterIndex += 1
+                    }
+                    #Pass through symbols and numbers
+                    Default { $Deciphered.Add($Character) | Out-Null }
+                }
+            }
+            #Add results of the decipher
+            $DecipheredMessages.Add(([PSCustomObject]@{
+                'Plaintext' = $Deciphered -join ""
+                'Ciphertext' = $Message
+                'Key' = $Key
+            })) | Out-Null
+        }
+    }
+    End
+    {
+        #Return the results
+        Return $DecipheredMessages
+    }
+}

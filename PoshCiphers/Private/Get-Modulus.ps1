@@ -24,6 +24,13 @@ Function Get-Modulus
         [Parameter(Mandatory = $True, Position=1, ValueFromPipeline=$True)]
         [Int] $Divisor
     )
-    #Returns the Modulus of the dividend and divisor
-    Return ($Dividend % $Divisor + $Divisor) % $Divisor
+    Process
+    {
+        $Modulus = ($Dividend % $Divisor + $Divisor) % $Divisor
+    }
+    End
+    {
+        #Returns the Modulus of the dividend and divisor
+        Return $Modulus 
+    }
 }

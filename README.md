@@ -19,6 +19,15 @@ Plaintext Ciphertext Rotation
 Example   Rknzcyr          13
 ```
 
+#### Vigenere
+```powershell
+Get-VigEncipher -Plaintext "Example" -Key "password"
+
+Plaintext Ciphertext Key
+--------- ---------- ---
+Example   Txselzv    password
+```
+
 ### Decipher
 #### Caesar (Rotation)
 ```powershell
@@ -27,6 +36,15 @@ Get-RotDecipher -Ciphertext "Rknzcyr" -Rotation 13
 Plaintext Ciphertext Rotation
 --------- ---------- --------
 Example   Rknzcyr          13
+```
+
+#### Vigenere
+```powershell
+Get-VigDecipher -Ciphertext "Txselzv" -Key "password"
+
+Plaintext Ciphertext Key
+--------- ---------- ---
+Example   Txselzv    password
 ```
 
 ## Planned
