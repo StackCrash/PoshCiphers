@@ -1,0 +1,11 @@
+PSTOPIC
+    about_PoshCiphers
+
+SHORT DESCRIPTION
+    PoshCiphers is a PowerShell module for enciphering and deciphering common Caesar and Vigenere ciphers.
+
+LONG DESCRIPTION
+    PoshCiphers is a PowerShell module for enciphering and deciphering common Caesar and Vigenere ciphers.
+
+DETAILED DESCRIPTION
+    PoshCiphers is a PowerShell module for enciphering and deciphering common Caesar and Vigenere ciphers.
