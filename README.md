@@ -48,5 +48,5 @@ Example   Txselzv    password
 ```
 
 ## Planned
-- Add support for Vigenere ciphers.
-- Add support for brute forcing Caesar and Vigenere ciphers.
+- Add support for brute forcing Caesar (Rotation) ciphers.
+- Add support for brute forcing Vigenere ciphers.
