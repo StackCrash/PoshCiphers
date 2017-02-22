@@ -49,6 +49,15 @@ Example   Txselzv    password
 
 ## Bruteforcing
 ### Caesar
+The longer the ciphertext the more likely it is to return an accurate result like below.
+```powershell
+Get-RotBruteForce -Ciphertext "Drsc sc kx ohkwzvo drkd cryevn lo vyxq oxyeqr"
+
+Plaintext                                     Ciphertext                                    Rotation           Entroy
+---------                                     ----------                                    --------           ------
+This is an example that should be long enough Drsc sc kx ohkwzvo drkd cryevn lo vyxq oxyeqr       10 109.798786942039
+```
+When the ciphertext is too short it might be benefitial to return multiple results.
 ```powershell
 Get-RotBruteForce -Ciphertext "Ohkwzvo" -Return 6
 
