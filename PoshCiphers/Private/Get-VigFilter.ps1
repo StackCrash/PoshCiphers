@@ -30,9 +30,9 @@ Function Get-VigFilter
             Switch ([Byte]$Character)
             {
                 #Uppercase characters
-                {$_ -ge 65 -and $_ -le 90} { $KeyArray.Add((($_ - 65) % 32)) | Out-Null }
+                {$_ -ge 65 -and $_ -le 90} { $KeyArray.Add((($_ - 65) % 26)) | Out-Null }
                 #Lowercase characters
-                {$_ -ge 97 -and $_ -le 122} { $KeyArray.Add((($_ - 97) % 32)) | Out-Null }
+                {$_ -ge 97 -and $_ -le 122} { $KeyArray.Add((($_ - 97) % 26)) | Out-Null }
                 #Ignore symbols and numbers
                 Default { Out-Null }
             }
