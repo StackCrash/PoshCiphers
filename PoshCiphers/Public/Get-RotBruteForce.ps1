@@ -93,9 +93,9 @@ Function Get-RotBruteForce
                     'Entroy' = $Entropy
                 })) | Out-Null
             }
+            #Add the number of desired returns after sorting the $DecipheredArray
+           $DecipheredMessages.Add(($DecipheredArray | Sort-Object -Property Entroy | Select-Object -First $Return)) | Out-Null
         }
-        #Add the number of desired returns after sorting the $DecipheredArray
-        $DecipheredMessages.Add(($DecipheredArray | Sort-Object -Property Entroy | Select-Object -First $Return)) | Out-Null
     }
     End
     {
