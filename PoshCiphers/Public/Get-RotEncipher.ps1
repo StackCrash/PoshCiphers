@@ -51,6 +51,7 @@ Function Get-RotEncipher
         [Parameter(Mandatory = $True, Position=0, ValueFromPipeline=$True)]
         [String[]] $Plaintext,
         [Parameter(Mandatory = $False, Position=1)]
+        [ValidateRange(1,25)]
         [Int] $Rotation = 13,
         [Parameter(Mandatory = $False, Position=2)]
         [String] $Spacing = 0,

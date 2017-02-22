@@ -40,6 +40,7 @@ Function Get-RotDecipher
         [Parameter(Mandatory = $True, Position=0, ValueFromPipeline=$True)]
         [String[]] $Ciphertext,
         [Parameter(Mandatory = $False, Position=1)]
+        [ValidateRange(1,25)]
         [Int] $Rotation = 13,
         [Parameter()]
         [Switch]$Strip
