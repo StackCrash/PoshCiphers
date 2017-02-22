@@ -47,6 +47,20 @@ Plaintext Ciphertext Key
 Example   Txselzv    password
 ```
 
+## Bruteforcing
+### Caesar
+```powershell
+Get-RotBruteForce -Ciphertext "Ohkwzvo" -Return 6
+
+Plaintext Ciphertext Rotation           Entroy
+--------- ---------- --------           ------
+Atwilha   Ohkwzvo          14 19.8330281092882
+Lehtwsl   Ohkwzvo           3 20.1951620075682
+Hadpsoh   Ohkwzvo           7 20.5561918374628
+Tmpbeat   Ohkwzvo          21 21.2523902999804
+Wpsehdw   Ohkwzvo          18 22.2203513815375
+Example   Ohkwzvo          10 24.0221984573182
+```
+
 ## Planned
-- Add support for brute forcing Caesar (Rotation) ciphers.
 - Add support for brute forcing Vigenere ciphers.
