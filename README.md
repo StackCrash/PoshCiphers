@@ -70,17 +70,22 @@ Tmpbeat   Ohkwzvo          21 21.2523902999804
 Wpsehdw   Ohkwzvo          18 22.2203513815375
 Example   Ohkwzvo          10 24.0221984573182
 ```
-Bigrams can be used and are more accurate than single letter frequency calculations
+Bigrams can be used and are more accurate than single letter frequency calculations. Below is an example of both and how bigrams result in better accuracy.
 ```powershell
-Get-RotBruteForce -Ciphertext "Qjmybxq" -Bigrams -Return 5
+Get-RotBruteForce -Ciphertext "Kx ohkwzvo" -Return 4
 
-Plaintext Ciphertext Rotation          Entropy
---------- ---------- --------          -------
-Atwilha   Qjmybxq          16 13.0061738286251
-Hadpsoh   Qjmybxq           9 13.1988815768301
-Lehtwsl   Qjmybxq           5 13.6481534217872
-Tmpbeat   Qjmybxq          23 14.2167316622535
-Example   Qjmybxq          12  14.381970038886
+Plaintext  Ciphertext Rotation          Entropy
+---------  ---------- --------          -------
+Hu lehtwsl Kx ohkwzvo        3 26.5836919196097
+Pc tmpbeat Kx ohkwzvo       21 28.7825588445318
+Sf wpsehdw Kx ohkwzvo       18 28.7847612412839
+An example Kx ohkwzvo       10  29.223042839157
+
+Get-RotBruteForce -Ciphertext "Kx ohkwzvo" -Bigrams
+
+Plaintext  Ciphertext Rotation          Entropy
+---------  ---------- --------          -------
+An example Kx ohkwzvo       10 18.3733998951538
 ```
 
 ## Planned
