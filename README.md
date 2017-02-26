@@ -70,6 +70,17 @@ Tmpbeat   Ohkwzvo          21 21.2523902999804
 Wpsehdw   Ohkwzvo          18 22.2203513815375
 Example   Ohkwzvo          10 24.0221984573182
 ```
+Bigrams can be used and are more accurate than single letter frequency calculations
+```powershell
+Get-RotBruteForce -Ciphertext "Qjmybxq" -Bigrams -Return 4
+
+Plaintext Ciphertext Rotation          Entropy
+--------- ---------- --------          -------
+Atwilha   Qjmybxq          16 15.0861096952459
+Tmpbeat   Qjmybxq          23 16.1689118339204
+Hadpsoh   Qjmybxq           9 16.3222746155573
+Example   Qjmybxq          12  16.535234171974
+```
 
 ## Planned
 - Add support for brute forcing Vigenere ciphers.

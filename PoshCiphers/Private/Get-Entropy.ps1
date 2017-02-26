@@ -18,7 +18,7 @@ Function Get-Entropy
     Param
     (
         [Parameter(Mandatory = $True, Position=0, ValueFromPipeline=$True)]
-        [String[]] $Text
+        [String] $Text
     )
     Begin
     {
@@ -30,7 +30,7 @@ Function Get-Entropy
     }
     Process
     {
-        #Loop though each character in the message
+        #Loop though each character in the text
         ForEach ($Character in $Text.ToCharArray())
         {
             #Convert the character to ASCII code

@@ -17,24 +17,27 @@ Function Get-RotBruteForce
         .Parameter Strip
         Removes whitespaces from the ciphertext message(s).
 
+        .Parameter Bigrams
+        Uses bigrams to calculate the entropy instead of single letter entropy
+
         .Example
         Get-RotBruteForce -Ciphertext "Drsc sc kx ohkwzvo drkd cryevn lo vyxq oxyeqr"
 
-        Plaintext                                     Ciphertext                                    Rotation           Entroy
+        Plaintext                                     Ciphertext                                    Rotation           Entropy
         ---------                                     ----------                                    --------           ------
         This is an example that should be long enough Drsc sc kx ohkwzvo drkd cryevn lo vyxq oxyeqr       10 109.798786942039
 
         .Example
         Get-RotBruteForce -Ciphertext "Drsc sc kx ohkwzvo drkd cryevn lo vyxq oxyeqr" -Strip
 
-        Plaintext                             Ciphertext                            Rotation           Entroy
+        Plaintext                             Ciphertext                            Rotation           Entropy
         ---------                             ----------                            --------           ------
         Thisisanexamplethatshouldbelongenough Drscsckxohkwzvodrkdcryevnlovyxqoxyeqr       10 109.798786942039
 
         .Example
         Get-RotBruteForce -Ciphertext "Ohkwzvo" -Return 6
 
-        Plaintext Ciphertext Rotation           Entroy
+        Plaintext Ciphertext Rotation           Entropy
         --------- ---------- --------           ------
         Atwilha   Ohkwzvo          14 19.8330281092882
         Lehtwsl   Ohkwzvo           3 20.1951620075682
@@ -42,6 +45,16 @@ Function Get-RotBruteForce
         Tmpbeat   Ohkwzvo          21 21.2523902999804
         Wpsehdw   Ohkwzvo          18 22.2203513815375
         Example   Ohkwzvo          10 24.0221984573182
+
+        .Example
+        Get-RotBruteForce -Ciphertext "Qjmybxq" -Bigrams -Return 4
+
+        Plaintext Ciphertext Rotation          Entropy
+        --------- ---------- --------          -------
+        Atwilha   Qjmybxq          16 15.0861096952459
+        Tmpbeat   Qjmybxq          23 16.1689118339204
+        Hadpsoh   Qjmybxq           9 16.3222746155573
+        Example   Qjmybxq          12  16.535234171974
 
         .NOTES
         The length of the ciphertext is important because shorter ciphertext will increase the chance of an inaccurate result.
@@ -58,7 +71,9 @@ Function Get-RotBruteForce
         [ValidateRange(1,25)]
         [Int] $Return = 1,
         [Parameter()]
-        [Switch]$Strip
+        [Switch]$Strip,
+        [Parameter()]
+        [Switch]$Bigrams
     )
     Begin
     {
@@ -83,18 +98,33 @@ Function Get-RotBruteForce
             #Loop through each deciphered message and generate the entroy
             ForEach ($Text in $Deciphered)
             {
-                #Get the entropy for the plaintext
-                $Entropy = (Get-Entropy -Text $($Text | Select-Object -ExpandProperty Plaintext))
-                #Add results to a the $DecipheredArray
-                $DecipheredArray.Add(([PSCustomObject]@{
-                    'Plaintext' = $Text | Select-Object -ExpandProperty Plaintext
-                    'Ciphertext' = $Text | Select-Object -ExpandProperty Ciphertext
-                    'Rotation' = $Text | Select-Object -ExpandProperty Rotation
-                    'Entroy' = $Entropy
-                })) | Out-Null
+                If ($Bigrams)
+                {
+                    #Get the bigram entropy for the plaintext
+                    $Entropy = (Get-BiEntropy -Text $($Text | Select-Object -ExpandProperty Plaintext))
+                    #Add results to a the $DecipheredArray
+                    $DecipheredArray.Add(([PSCustomObject]@{
+                        'Plaintext' = $Text | Select-Object -ExpandProperty Plaintext
+                        'Ciphertext' = $Text | Select-Object -ExpandProperty Ciphertext
+                        'Rotation' = $Text | Select-Object -ExpandProperty Rotation
+                        'Entropy' = $Entropy
+                    })) | Out-Null
+                }
+                Else
+                {
+                    #Get the entropy for the plaintext
+                    $Entropy = (Get-Entropy -Text $($Text | Select-Object -ExpandProperty Plaintext))
+                    #Add results to a the $DecipheredArray
+                    $DecipheredArray.Add(([PSCustomObject]@{
+                        'Plaintext' = $Text | Select-Object -ExpandProperty Plaintext
+                        'Ciphertext' = $Text | Select-Object -ExpandProperty Ciphertext
+                        'Rotation' = $Text | Select-Object -ExpandProperty Rotation
+                        'Entropy' = $Entropy
+                    })) | Out-Null
+                }
             }
             #Add the number of desired returns after sorting the $DecipheredArray
-           $DecipheredMessages.Add(($DecipheredArray | Sort-Object -Property Entroy | Select-Object -First $Return)) | Out-Null
+           $DecipheredMessages.Add(($DecipheredArray | Sort-Object -Property Entropy | Select-Object -First $Return)) | Out-Null
         }
     }
     End
