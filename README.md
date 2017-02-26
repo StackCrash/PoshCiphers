@@ -49,7 +49,7 @@ Example   Txselzv    password
 
 ## Bruteforcing
 ### Caesar
-The longer the ciphertext the more likely it is to return an accurate result like below.
+The longer the ciphertext the more likely it is to return an accurate result like below. The lower the entropy the more likely the match is correct.
 ```powershell
 Get-RotBruteForce -Ciphertext "Drsc sc kx ohkwzvo drkd cryevn lo vyxq oxyeqr"
 
