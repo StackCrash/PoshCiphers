@@ -47,14 +47,15 @@ Function Get-RotBruteForce
         Example   Ohkwzvo          10 24.0221984573182
 
         .Example
-        Get-RotBruteForce -Ciphertext "Qjmybxq" -Bigrams -Return 4
+        Get-RotBruteForce -Ciphertext "Qjmybxq" -Bigrams -Return 5
 
         Plaintext Ciphertext Rotation          Entropy
         --------- ---------- --------          -------
-        Atwilha   Qjmybxq          16 15.0861096952459
-        Tmpbeat   Qjmybxq          23 16.1689118339204
-        Hadpsoh   Qjmybxq           9 16.3222746155573
-        Example   Qjmybxq          12  16.535234171974
+        Atwilha   Qjmybxq          16 13.0061738286251
+        Hadpsoh   Qjmybxq           9 13.1988815768301
+        Lehtwsl   Qjmybxq           5 13.6481534217872
+        Tmpbeat   Qjmybxq          23 14.2167316622535
+        Example   Qjmybxq          12  14.381970038886
 
         .NOTES
         The length of the ciphertext is important because shorter ciphertext will increase the chance of an inaccurate result.

@@ -53,7 +53,7 @@ The longer the ciphertext the more likely it is to return an accurate result lik
 ```powershell
 Get-RotBruteForce -Ciphertext "Drsc sc kx ohkwzvo drkd cryevn lo vyxq oxyeqr"
 
-Plaintext                                     Ciphertext                                    Rotation           Entroy
+Plaintext                                     Ciphertext                                    Rotation           Entropy
 ---------                                     ----------                                    --------           ------
 This is an example that should be long enough Drsc sc kx ohkwzvo drkd cryevn lo vyxq oxyeqr       10 109.798786942039
 ```
@@ -61,7 +61,7 @@ When the ciphertext is too short it might be benefitial to return multiple resul
 ```powershell
 Get-RotBruteForce -Ciphertext "Ohkwzvo" -Return 6
 
-Plaintext Ciphertext Rotation           Entroy
+Plaintext Ciphertext Rotation           Entropy
 --------- ---------- --------           ------
 Atwilha   Ohkwzvo          14 19.8330281092882
 Lehtwsl   Ohkwzvo           3 20.1951620075682
@@ -72,14 +72,15 @@ Example   Ohkwzvo          10 24.0221984573182
 ```
 Bigrams can be used and are more accurate than single letter frequency calculations
 ```powershell
-Get-RotBruteForce -Ciphertext "Qjmybxq" -Bigrams -Return 4
+Get-RotBruteForce -Ciphertext "Qjmybxq" -Bigrams -Return 5
 
 Plaintext Ciphertext Rotation          Entropy
 --------- ---------- --------          -------
-Atwilha   Qjmybxq          16 15.0861096952459
-Tmpbeat   Qjmybxq          23 16.1689118339204
-Hadpsoh   Qjmybxq           9 16.3222746155573
-Example   Qjmybxq          12  16.535234171974
+Atwilha   Qjmybxq          16 13.0061738286251
+Hadpsoh   Qjmybxq           9 13.1988815768301
+Lehtwsl   Qjmybxq           5 13.6481534217872
+Tmpbeat   Qjmybxq          23 14.2167316622535
+Example   Qjmybxq          12  14.381970038886
 ```
 
 ## Planned
