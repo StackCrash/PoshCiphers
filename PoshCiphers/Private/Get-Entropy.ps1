@@ -30,6 +30,8 @@ Function Get-Entropy
     }
     Process
     {
+        #Remove anything that is not a letter
+        $Text = [Regex]::Replace($Text,'[^a-zA-Z]','').ToUpper()
         #Loop though each character in the text
         ForEach ($Character in $Text.ToCharArray())
         {

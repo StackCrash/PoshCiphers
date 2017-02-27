@@ -24,16 +24,16 @@ Function Get-BiEntropy
     {
         [Double]$Entropy = 0
         $Bigrams = Get-Bigrams
-        $Text = ([RegEx]::Matches($Text,'[a-zA-Z]+') | ForEach-Object { $_.Value }).ToUpper() -join ''
     }
     Process
     {
-        $Text = $Text.ToCharArray()
+        #Remove anything that is not a letter
+        $Text = [Regex]::Replace($Text,'[^a-zA-Z]','').ToUpper()
         #Loop though each pair in the text
-        For ($Start = 0; $Start -lt ($Text.Length - 2); $Start++)
+        For ($Start = 0; $Start -le ($Text.Length - 2); $Start++)
         {
             #Create the pair to use
-            $Pair = $Text[$Start..($Start+1)] -join ''
+            $Pair = $Text[$Start..($Start + 1)] -join ''
             #Calculate the entropy
             $Entropy += $Bigrams | Where-Object { $_.Pair -eq $Pair } | Select-Object -ExpandProperty Entropy
         }   
