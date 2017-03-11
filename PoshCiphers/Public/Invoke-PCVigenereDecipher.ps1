@@ -57,7 +57,7 @@ Function Invoke-PCVigenereDecipher
             #Create an array list to store deciphered characters in
             $Deciphered = New-Object System.Collections.ArrayList
             #Get the Vigenere table for the key
-            $Filter = Get-PCVigFilter -Key $Key | ForEach-Object { (26 - $_) % 26 }
+            $Filter = Get-PCVigenereFilter -Key $Key | ForEach-Object { (26 - $_) % 26 }
             #Set the index value to use with the filter
             $FilterIndex = 0
             If ($Strip)
@@ -71,13 +71,13 @@ Function Invoke-PCVigenereDecipher
                 #Convert the character to ASCII code
                 Switch ([Byte]$Character)
                 {
-                    #Encipher uppercase characters
+                    #Decipher uppercase characters
                     {$_ -ge 65 -and $_ -le 90}
                     {
                         $Deciphered.Add([Char](($_ - 65 + $Filter[$FilterIndex % $Filter.Length]) % 26 + 65)) | Out-Null
                         $FilterIndex += 1
                     }
-                    #Encipher lowercase characters
+                    #Decipher lowercase characters
                     {$_ -ge 97 -and $_ -le 122}
                     {
                         $Deciphered.Add([Char](($_ - 97 + $Filter[$FilterIndex % $Filter.Length]) % 26 + 97)) | Out-Null

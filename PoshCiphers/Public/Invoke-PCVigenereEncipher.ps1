@@ -70,7 +70,7 @@ Function Invoke-PCVigenereEncipher
             #Create an array list to store enciphered characters in
             $Enciphered = New-Object System.Collections.ArrayList
             #Get the Vigenere table for the key
-            $Filter = Get-PCVigFilter -Key $Key
+            $Filter = Get-PCVigenereFilter -Key $Key
             #Set the index value to use with the filter
             $FilterIndex = 0
             If ($Strip)
