@@ -1,4 +1,4 @@
-Function Get-RotEncipher
+Function Invoke-PCCaesarEncipher
 {
     <# 
         .Synopsis
@@ -22,21 +22,21 @@ Function Get-RotEncipher
         Removes whitespaces from the plaintext message(s).
 
         .Example
-        Get-RotEncipher -Plaintext "Example" -Rotation 13
+        Invoke-PCCaesarEncipher -Plaintext "Example" -Rotation 13
 
         Plaintext Ciphertext Rotation
         --------- ---------- --------
         Example   Rknzcyr          13
 
         .Example
-        Get-RotEncipher -Plaintext "Example With Spaces" -Rotation 13 -Strip
+        Invoke-PCCaesarEncipher -Plaintext "Example With Spaces" -Rotation 13 -Strip
 
         Plaintext         Ciphertext        Rotation
         ---------         ----------        --------
         ExampleWithSpaces RknzcyrJvguFcnprf       13
 
         .Example
-        Get-RotEncipher -Plaintext "Example With Spaces" -Rotation 13 -Spacing 4
+        Invoke-PCCaesarEncipher -Plaintext "Example With Spaces" -Rotation 13 -Spacing 4
 
         Plaintext         Ciphertext              Rotation
         ---------         ----------              --------
@@ -82,9 +82,9 @@ Function Get-RotEncipher
                 Switch ([Byte]$Character)
                 {
                     #Encipher uppercase characters
-                    {$_ -ge 65 -and $_ -le 90} { $Enciphered.Add([Char]((Get-Modulus -Dividend $($_ - 65 + $Rotation) -Divisor 26) + 65)) | Out-Null }
+                    {$_ -ge 65 -and $_ -le 90} { $Enciphered.Add([Char]((Get-PCModulus -Dividend $($_ - 65 + $Rotation) -Divisor 26) + 65)) | Out-Null }
                     #Encipher lowercase characters
-                    {$_ -ge 97 -and $_ -le 122} { $Enciphered.Add([Char]((Get-Modulus -Dividend $($_ - 97 + $Rotation) -Divisor 26) + 97)) | Out-Null }
+                    {$_ -ge 97 -and $_ -le 122} { $Enciphered.Add([Char]((Get-PCModulus -Dividend $($_ - 97 + $Rotation) -Divisor 26) + 97)) | Out-Null }
                     #Pass through symbols and numbers
                     Default { $Enciphered.Add($Character) | Out-Null }
                 }

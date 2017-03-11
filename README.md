@@ -12,7 +12,7 @@ Import-Module C:\Path\To\Cloned\Location\PoshCiphers\PoshCiphers\PoshCiphers.psm
 ### Encipher
 #### Caesar (Rotation)
 ```powershell
-Get-RotEncipher -Plaintext "Example" -Rotation 13
+Invoke-PCCaesarEncipher -Plaintext "Example" -Rotation 13
 
 Plaintext Ciphertext Rotation
 --------- ---------- --------
@@ -21,7 +21,7 @@ Example   Rknzcyr          13
 
 #### Vigenere
 ```powershell
-Get-VigEncipher -Plaintext "Example" -Key "password"
+Invoke-PCVigenereEncipher -Plaintext "Example" -Key "password"
 
 Plaintext Ciphertext Key
 --------- ---------- ---
@@ -31,7 +31,7 @@ Example   Txselzv    password
 ### Decipher
 #### Caesar (Rotation)
 ```powershell
-Get-RotDecipher -Ciphertext "Rknzcyr" -Rotation 13
+Invoke-PCCaesarDecipher -Ciphertext "Rknzcyr" -Rotation 13
 
 Plaintext Ciphertext Rotation
 --------- ---------- --------
@@ -40,7 +40,7 @@ Example   Rknzcyr          13
 
 #### Vigenere
 ```powershell
-Get-VigDecipher -Ciphertext "Txselzv" -Key "password"
+Invoke-PCVigenereDecipher -Ciphertext "Txselzv" -Key "password"
 
 Plaintext Ciphertext Key
 --------- ---------- ---
@@ -51,7 +51,7 @@ Example   Txselzv    password
 ### Caesar
 The longer the ciphertext the more likely it is to return an accurate result like below. The lower the entropy the more likely the match is correct.
 ```powershell
-Get-RotBruteForce -Ciphertext "Drsc sc kx ohkwzvo drkd cryevn lo vyxq oxyeqr"
+Invoke-PCBruteForceCaesar -Ciphertext "Drsc sc kx ohkwzvo drkd cryevn lo vyxq oxyeqr"
 
 Plaintext                                     Ciphertext                                    Rotation           Entropy
 ---------                                     ----------                                    --------           ------
@@ -59,7 +59,7 @@ This is an example that should be long enough Drsc sc kx ohkwzvo drkd cryevn lo 
 ```
 When the ciphertext is too short it might be benefitial to return multiple results.
 ```powershell
-Get-RotBruteForce -Ciphertext "Ohkwzvo" -Return 6
+Invoke-PCBruteForceCaesar -Ciphertext "Ohkwzvo" -Return 6
 
 Plaintext Ciphertext Rotation           Entropy
 --------- ---------- --------           ------
@@ -72,7 +72,7 @@ Example   Ohkwzvo          10 24.0221984573182
 ```
 Bigrams can be used and are more accurate than single letter frequency calculations. Below is an example of both and how bigrams result in better accuracy.
 ```powershell
-Get-RotBruteForce -Ciphertext "Kx ohkwzvo" -Return 4
+Invoke-PCBruteForceCaesar -Ciphertext "Kx ohkwzvo" -Return 4
 
 Plaintext  Ciphertext Rotation          Entropy
 ---------  ---------- --------          -------
@@ -81,7 +81,7 @@ Pc tmpbeat Kx ohkwzvo       21 28.7825588445318
 Sf wpsehdw Kx ohkwzvo       18 28.7847612412839
 An example Kx ohkwzvo       10  29.223042839157
 
-Get-RotBruteForce -Ciphertext "Kx ohkwzvo" -Bigrams
+Invoke-PCBruteForceCaesar -Ciphertext "Kx ohkwzvo" -Bigrams
 
 Plaintext  Ciphertext Rotation          Entropy
 ---------  ---------- --------          -------

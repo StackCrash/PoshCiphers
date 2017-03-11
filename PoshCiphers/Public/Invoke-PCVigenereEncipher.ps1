@@ -1,4 +1,4 @@
-Function Get-VigEncipher
+Function Invoke-PCVigenereEncipher
 {
     <# 
         .Synopsis
@@ -22,21 +22,21 @@ Function Get-VigEncipher
         Removes whitespaces from the plaintext message(s).
 
         .Example
-        Get-VigEncipher -Plaintext "Example" -Key "password"
+        Invoke-PCVigenereEncipher -Plaintext "Example" -Key "password"
 
         Plaintext Ciphertext Key
         --------- ---------- ---
         Example   Txselzv    password
 
         .Example
-        Get-VigEncipher -Plaintext "Example With Spaces" -Key "password" -Strip
+        Invoke-PCVigenereEncipher -Plaintext "Example With Spaces" -Key "password" -Strip
 
         Plaintext         Ciphertext        Key
         ---------         ----------        ---
         Examplewithspaces TxselzvZxtzKlothh password
 
         .Example
-        Get-VigEncipher -Plaintext "Example With Spaces" -Key "password" -Spacing 4
+        Invoke-PCVigenereEncipher -Plaintext "Example With Spaces" -Key "password" -Spacing 4
 
         Plaintext           Ciphertext            Key
         ---------           ----------            ---
@@ -70,7 +70,7 @@ Function Get-VigEncipher
             #Create an array list to store enciphered characters in
             $Enciphered = New-Object System.Collections.ArrayList
             #Get the Vigenere table for the key
-            $Filter = Get-VigFilter -Key $Key
+            $Filter = Get-PCVigFilter -Key $Key
             #Set the index value to use with the filter
             $FilterIndex = 0
             If ($Strip)

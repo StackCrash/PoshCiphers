@@ -1,4 +1,4 @@
-Function Get-RotBruteForce
+Function Invoke-PCBruteForceCaesar
 {
     <# 
         .Synopsis
@@ -21,21 +21,21 @@ Function Get-RotBruteForce
         Uses bigrams to calculate the entropy instead of single letter entropy
 
         .Example
-        Get-RotBruteForce -Ciphertext "Drsc sc kx ohkwzvo drkd cryevn lo vyxq oxyeqr"
+        Invoke-PCBruteForceCaesar -Ciphertext "Drsc sc kx ohkwzvo drkd cryevn lo vyxq oxyeqr"
 
         Plaintext                                     Ciphertext                                    Rotation           Entropy
         ---------                                     ----------                                    --------           ------
         This is an example that should be long enough Drsc sc kx ohkwzvo drkd cryevn lo vyxq oxyeqr       10 109.798786942039
 
         .Example
-        Get-RotBruteForce -Ciphertext "Drsc sc kx ohkwzvo drkd cryevn lo vyxq oxyeqr" -Strip
+        Invoke-PCBruteForceCaesar -Ciphertext "Drsc sc kx ohkwzvo drkd cryevn lo vyxq oxyeqr" -Strip
 
         Plaintext                             Ciphertext                            Rotation           Entropy
         ---------                             ----------                            --------           ------
         Thisisanexamplethatshouldbelongenough Drscsckxohkwzvodrkdcryevnlovyxqoxyeqr       10 109.798786942039
 
         .Example
-        Get-RotBruteForce -Ciphertext "Ohkwzvo" -Return 6
+        Invoke-PCBruteForceCaesar -Ciphertext "Ohkwzvo" -Return 6
 
         Plaintext Ciphertext Rotation           Entropy
         --------- ---------- --------           ------
@@ -47,7 +47,7 @@ Function Get-RotBruteForce
         Example   Ohkwzvo          10 24.0221984573182
 
         .Example
-        Get-RotBruteForce -Ciphertext "Qjmybxq" -Bigrams -Return 5
+        Invoke-PCBruteForceCaesar -Ciphertext "Qjmybxq" -Bigrams -Return 5
 
         Plaintext Ciphertext Rotation          Entropy
         --------- ---------- --------          -------
@@ -95,14 +95,14 @@ Function Get-RotBruteForce
                 $Message = $Message -replace '\s', ''
             }
             #Decipher all possible rotations of the message
-            $Deciphered = 1..25 | ForEach-Object { Get-RotDecipher -Ciphertext $Message -Rotation $_ }
+            $Deciphered = 1..25 | ForEach-Object { Invoke-PCCaesarDecipher -Ciphertext $Message -Rotation $_ }
             #Loop through each deciphered message and generate the entroy
             ForEach ($Text in $Deciphered)
             {
                 If ($Bigrams)
                 {
                     #Get the bigram entropy for the plaintext
-                    $Entropy = (Get-BiEntropy -Text $($Text | Select-Object -ExpandProperty Plaintext))
+                    $Entropy = (Get-PCBiEntropy -Text $($Text | Select-Object -ExpandProperty Plaintext))
                     #Add results to a the $DecipheredArray
                     $DecipheredArray.Add(([PSCustomObject]@{
                         'Plaintext' = $Text | Select-Object -ExpandProperty Plaintext
@@ -114,7 +114,7 @@ Function Get-RotBruteForce
                 Else
                 {
                     #Get the entropy for the plaintext
-                    $Entropy = (Get-Entropy -Text $($Text | Select-Object -ExpandProperty Plaintext))
+                    $Entropy = (Get-PCEntropy -Text $($Text | Select-Object -ExpandProperty Plaintext))
                     #Add results to a the $DecipheredArray
                     $DecipheredArray.Add(([PSCustomObject]@{
                         'Plaintext' = $Text | Select-Object -ExpandProperty Plaintext

@@ -1,4 +1,4 @@
-Function Get-RotDecipher
+Function Invoke-PCCaesarDecipher
 {
     <# 
         .Synopsis
@@ -18,14 +18,14 @@ Function Get-RotDecipher
         Removes whitespaces from the ciphertext message(s).
 
         .Example
-        Get-RotDecipher -Ciphertext "Rknzcyr" -Rotation 13
+        Invoke-PCCaesarDecipher -Ciphertext "Rknzcyr" -Rotation 13
 
         Plaintext Ciphertext Rotation
         --------- ---------- --------
         Example   Rknzcyr          13
 
         .Example
-        Get-RotDecipher -Ciphertext "Rknzcyr Jvgu Fcnprf" -Rotation 13 -Strip
+        Invoke-PCCaesarDecipher -Ciphertext "Rknzcyr Jvgu Fcnprf" -Rotation 13 -Strip
 
         Plaintext         Ciphertext        Rotation
         ---------         ----------        --------
@@ -69,9 +69,9 @@ Function Get-RotDecipher
                 Switch ([Byte]$Character)
                 {
                     #Decipher uppercase characters
-                    {$_ -ge 65 -and $_ -le 90} { $Deciphered.Add([Char]((Get-Modulus -Dividend $($_ - 65 - $Rotation) -Divisor 26) + 65)) | Out-Null }
+                    {$_ -ge 65 -and $_ -le 90} { $Deciphered.Add([Char]((Get-PCModulus -Dividend $($_ - 65 - $Rotation) -Divisor 26) + 65)) | Out-Null }
                     #Decipher lowercase characters
-                    {$_ -ge 97 -and $_ -le 122} { $Deciphered.Add([Char]((Get-Modulus -Dividend $($_ - 97 - $Rotation) -Divisor 26) + 97)) | Out-Null }
+                    {$_ -ge 97 -and $_ -le 122} { $Deciphered.Add([Char]((Get-PCModulus -Dividend $($_ - 97 - $Rotation) -Divisor 26) + 97)) | Out-Null }
                     #Pass through symbols and numbers
                     Default { $Deciphered.Add($Character) | Out-Null }
                 }

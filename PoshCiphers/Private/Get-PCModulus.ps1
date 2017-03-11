@@ -1,4 +1,4 @@
-Function Get-Modulus 
+Function Get-PCModulus 
 {
     <# 
         .Synopsis
@@ -14,7 +14,7 @@ Function Get-Modulus
         The divisor to use.
 
         .Example
-        Get-Modulus -Dividend 5 -Divisor 2
+        Get-PCModulus -Dividend 5 -Divisor 2
     #>
     [CmdletBinding()]
     Param

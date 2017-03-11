@@ -1,4 +1,4 @@
-Function Get-VigDecipher
+Function Invoke-PCVigenereDecipher
 {
     <# 
         .Synopsis
@@ -18,14 +18,14 @@ Function Get-VigDecipher
         Removes whitespaces from the ciphertext message(s).
 
         .Example
-        Get-VigDecipher -Ciphertext "Txselzv" -Key "password"
+        Invoke-PCVigenereDecipher -Ciphertext "Txselzv" -Key "password"
 
         Plaintext Ciphertext Key
         --------- ---------- ---
         Example   Txselzv    password
 
         .Example
-        Get-VigDecipher -Ciphertext "Txse lzvZ xtzK loth h" -Key "password" -Strip
+        Invoke-PCVigenereDecipher -Ciphertext "Txse lzvZ xtzK loth h" -Key "password" -Strip
 
         Plaintext         Ciphertext        Key
         ---------         ----------        ---
@@ -57,7 +57,7 @@ Function Get-VigDecipher
             #Create an array list to store deciphered characters in
             $Deciphered = New-Object System.Collections.ArrayList
             #Get the Vigenere table for the key
-            $Filter = Get-VigFilter -Key $Key | ForEach-Object { (26 - $_) % 26 }
+            $Filter = Get-PCVigFilter -Key $Key | ForEach-Object { (26 - $_) % 26 }
             #Set the index value to use with the filter
             $FilterIndex = 0
             If ($Strip)

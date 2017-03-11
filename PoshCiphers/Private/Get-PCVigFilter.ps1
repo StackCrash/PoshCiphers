@@ -1,4 +1,4 @@
-Function Get-VigFilter 
+Function Get-PCVigFilter 
 {
     <# 
         .Synopsis
@@ -11,7 +11,7 @@ Function Get-VigFilter
         The key to use.
 
         .Example
-        Get-VigFilter -Key "password"
+        Get-PCVigFilter -Key "password"
     #>
     [CmdletBinding()]
     Param

@@ -1,4 +1,4 @@
-Function Get-Entropy
+Function Get-PCEntropy
 {
     <# 
         .Synopsis
@@ -11,7 +11,7 @@ Function Get-Entropy
         Text to generate entropy based on.
 
         .Example
-        Get-Entropy "Example"
+        Get-PCEntropy "Example"
         24.0221984573182
     #>
     [CmdletBinding()]
