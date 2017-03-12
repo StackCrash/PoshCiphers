@@ -1,4 +1,4 @@
-Function Get-PCBiEntropy
+Function Get-PCBigramEntropy
 {
     <# 
         .Synopsis
@@ -12,7 +12,7 @@ Function Get-PCBiEntropy
         Text to generate entropy based on.
 
         .Example
-        Get-PCBiEntropy -Text "Example"
+        Get-PCBigramEntropy -Text "Example"
         16.535234171974
     #>
     [CmdletBinding()]

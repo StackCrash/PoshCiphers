@@ -41,7 +41,7 @@ Function Invoke-PCVigenereDecipher
         [String[]] $Ciphertext,
         [Parameter(Mandatory = $True, Position=1)]
         [String] $Key,
-        [Parameter()]
+        [Parameter(Mandatory = $False)]
         [Switch]$Strip
     )
     Begin
@@ -87,12 +87,14 @@ Function Invoke-PCVigenereDecipher
                     Default { $Deciphered.Add($Character) | Out-Null }
                 }
             }
-            #Add results of the decipher
-            $DecipheredMessages.Add(([PSCustomObject]@{
+            $Result = [PSCustomObject]@{
                 'Plaintext' = $Deciphered -join ""
                 'Ciphertext' = $Message
                 'Key' = $Key
-            })) | Out-Null
+            }
+            $Result.PSObject.TypeNames.Insert(0,'PoshCiphers.Vigenere')
+            #Add results of the decipher
+            $DecipheredMessages.Add($Result) | Out-Null
         }
     }
     End

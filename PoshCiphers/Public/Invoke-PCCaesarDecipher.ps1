@@ -42,7 +42,7 @@ Function Invoke-PCCaesarDecipher
         [Parameter(Mandatory = $False, Position=1)]
         [ValidateRange(1,25)]
         [Int] $Rotation = 13,
-        [Parameter()]
+        [Parameter(Mandatory = $False)]
         [Switch]$Strip
     )
     Begin
@@ -76,12 +76,14 @@ Function Invoke-PCCaesarDecipher
                     Default { $Deciphered.Add($Character) | Out-Null }
                 }
             }
-            #Add results of the decipher
-            $DecipheredMessages.Add(([PSCustomObject]@{
+            $Result = [PSCustomObject]@{
                 'Plaintext' = $Deciphered -join ""
                 'Ciphertext' = $Message
                 'Rotation' = $Rotation
-            })) | Out-Null
+            }
+            $Result.PSObject.TypeNames.Insert(0,'PoshCiphers.Caesar')
+            #Add results of the decipher
+            $DecipheredMessages.Add($Result) | Out-Null
         }
     }
     End

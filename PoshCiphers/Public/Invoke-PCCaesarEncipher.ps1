@@ -55,7 +55,7 @@ Function Invoke-PCCaesarEncipher
         [Int] $Rotation = 13,
         [Parameter(Mandatory = $False, Position=2)]
         [String] $Spacing = 0,
-        [Parameter()]
+        [Parameter(Mandatory = $False)]
         [Switch]$Strip
     )
     Begin
@@ -99,12 +99,14 @@ Function Invoke-PCCaesarEncipher
                 #Split the ciphertext into the desired spacing
                 $Ciphertext = ([RegEx]::Matches($Ciphertext, ".{1,$Spacing}") | ForEach-Object { $_.Value }) -join ' '
             }
-            #Add results of the encipher
-            $EncipheredMessages.Add(([PSCustomObject]@{
+            $Result = [PSCustomObject]@{
                 'Plaintext' = $Message
                 'Ciphertext' = $Ciphertext
                 'Rotation' = $Rotation
-            })) | Out-Null
+            }
+            $Result.PSObject.TypeNames.Insert(0,'PoshCiphers.Caesar')
+            #Add results of the encipher
+            $EncipheredMessages.Add($Result) | Out-Null
         }
     }
     End

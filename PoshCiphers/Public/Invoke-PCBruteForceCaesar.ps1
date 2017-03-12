@@ -17,9 +17,6 @@ Function Invoke-PCBruteForceCaesar
         .Parameter Strip
         Removes whitespaces from the ciphertext message(s).
 
-        .Parameter Bigrams
-        Uses bigrams to calculate the entropy instead of single letter entropy
-
         .Example
         Invoke-PCBruteForceCaesar -Ciphertext "Drsc sc kx ohkwzvo drkd cryevn lo vyxq oxyeqr"
 
@@ -46,17 +43,6 @@ Function Invoke-PCBruteForceCaesar
         Wpsehdw   Ohkwzvo          18 22.2203513815375
         Example   Ohkwzvo          10 24.0221984573182
 
-        .Example
-        Invoke-PCBruteForceCaesar -Ciphertext "Qjmybxq" -Bigrams -Return 5
-
-        Plaintext Ciphertext Rotation          Entropy
-        --------- ---------- --------          -------
-        Atwilha   Qjmybxq          16 13.0061738286251
-        Hadpsoh   Qjmybxq           9 13.1988815768301
-        Lehtwsl   Qjmybxq           5 13.6481534217872
-        Tmpbeat   Qjmybxq          23 14.2167316622535
-        Example   Qjmybxq          12  14.381970038886
-
         .NOTES
         The length of the ciphertext is important because shorter ciphertext will increase the chance of an inaccurate result.
 
@@ -71,9 +57,9 @@ Function Invoke-PCBruteForceCaesar
         [Parameter(Mandatory = $False, Position=1)]
         [ValidateRange(1,25)]
         [Int] $Return = 1,
-        [Parameter()]
+        [Parameter(Mandatory = $False)]
         [Switch]$Strip,
-        [Parameter()]
+        [Parameter(Mandatory = $False)]
         [Switch]$Bigrams
     )
     Begin
@@ -99,30 +85,18 @@ Function Invoke-PCBruteForceCaesar
             #Loop through each deciphered message and generate the entroy
             ForEach ($Text in $Deciphered)
             {
-                If ($Bigrams)
-                {
-                    #Get the bigram entropy for the plaintext
-                    $Entropy = (Get-PCBiEntropy -Text $($Text | Select-Object -ExpandProperty Plaintext))
-                    #Add results to a the $DecipheredArray
-                    $DecipheredArray.Add(([PSCustomObject]@{
-                        'Plaintext' = $Text | Select-Object -ExpandProperty Plaintext
-                        'Ciphertext' = $Text | Select-Object -ExpandProperty Ciphertext
-                        'Rotation' = $Text | Select-Object -ExpandProperty Rotation
-                        'Entropy' = $Entropy
-                    })) | Out-Null
+                #Get the bigram entropy for the plaintext
+                $Entropy = (Get-PCBigramEntropy -Text $($Text | Select-Object -ExpandProperty Plaintext))
+                
+                $Result = [PSCustomObject]@{
+                    'Plaintext' = $Text | Select-Object -ExpandProperty Plaintext
+                    'Ciphertext' = $Text | Select-Object -ExpandProperty Ciphertext
+                    'Rotation' = $Text | Select-Object -ExpandProperty Rotation
+                    'Entropy' = $Entropy
                 }
-                Else
-                {
-                    #Get the entropy for the plaintext
-                    $Entropy = (Get-PCEntropy -Text $($Text | Select-Object -ExpandProperty Plaintext))
-                    #Add results to a the $DecipheredArray
-                    $DecipheredArray.Add(([PSCustomObject]@{
-                        'Plaintext' = $Text | Select-Object -ExpandProperty Plaintext
-                        'Ciphertext' = $Text | Select-Object -ExpandProperty Ciphertext
-                        'Rotation' = $Text | Select-Object -ExpandProperty Rotation
-                        'Entropy' = $Entropy
-                    })) | Out-Null
-                }
+                $Result.PSObject.TypeNames.Insert(0,'PoshCiphers.Caesar.Brute')
+                #Add results to a the $DecipheredArray
+                $DecipheredArray.Add($Result) | Out-Null
             }
             #Add the number of desired returns after sorting the $DecipheredArray
            $DecipheredMessages.Add(($DecipheredArray | Sort-Object -Property Entropy | Select-Object -First $Return)) | Out-Null

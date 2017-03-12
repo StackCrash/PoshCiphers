@@ -5,7 +5,7 @@ Powershell module for enciphering and deciphering common Caesar (Rotation) ciphe
 * Clone the repo
 * Import the module
 ```powershell
-Import-Module C:\Path\To\Cloned\Location\PoshCiphers\PoshCiphers\PoshCiphers.psm1
+Import-Module C:\Path\To\Cloned\Location\PoshCiphers\PoshCiphers\PoshCiphers.psd1
 ```
 
 ## Usage
@@ -70,23 +70,31 @@ Tmpbeat   Ohkwzvo          21 21.2523902999804
 Wpsehdw   Ohkwzvo          18 22.2203513815375
 Example   Ohkwzvo          10 24.0221984573182
 ```
-Bigrams can be used and are more accurate than single letter frequency calculations. Below is an example of both and how bigrams result in better accuracy.
+
+### Vigenere
+As with Caesar the longer the ciphertext the more likely it is to return and accurate results. Additionally, the maximum key length also plays into the more accuracy of results.
 ```powershell
-Invoke-PCBruteForceCaesar -Ciphertext "Kx ohkwzvo" -Return 4
+Invoke-PCBruteForceVigenere -CipherText 'Zls tnsogs wuv sebborj pwvy fkxkvkr lvsvjss ebu nevtwekwy ebu lsx xvv mvkeh sapq st dgrqmbu nevtwekwy mg skxzif' -Return 2
 
-Plaintext  Ciphertext Rotation          Entropy
----------  ---------- --------          -------
-Hu lehtwsl Kx ohkwzvo        3 26.5836919196097
-Pc tmpbeat Kx ohkwzvo       21 28.7825588445318
-Sf wpsehdw Kx ohkwzvo       18 28.7847612412839
-An example Kx ohkwzvo       10  29.223042839157
-
-Invoke-PCBruteForceCaesar -Ciphertext "Kx ohkwzvo" -Bigrams
-
-Plaintext  Ciphertext Rotation          Entropy
----------  ---------- --------          -------
-An example Kx ohkwzvo       10 18.3733998951538
+PlainText                                CipherText                               Key                           Entropy
+---------                                ----------                               ---                           -------
+The cibmue lor nanaind liet oilwken      Zls tnsogs wuv sebborj pwvy fkxkvkr      GEORFRCMOLGEFEOBGE   210.614486327131
+greudom and inthitest ant for the heist  lvsvjss ebu nevtwekwy ebu lsx xvv mvkeh
+hull of cankind inthitest is retter      sapq st dgrqmbu nevtwekwy mg skxzif
+The choice for mankind lies between      Zls tnsogs wuv sebborj pwvy fkxkvkr      GEORGE               216.636909401074
+freedom and happiness and for the great  lvsvjss ebu nevtwekwy ebu lsx xvv mvkeh
+bulk of mankind happiness is better      sapq st dgrqmbu nevtwekwy mg skxzif
 ```
+When lowering the max key length it can eliminate inaccurate results that occur when the key length tested is significantly longer than the actual key.
+```powershell
+Invoke-PCBruteForceVigenere -CipherText 'Zls tnsogs wuv sebborj pwvy fkxkvkr lvsvjss ebu nevtwekwy ebu lsx xvv mvkeh sapq st dgrqmbu nevtwekwy mg skxzif' -MaxKeyLength 10
 
+PlainText                                CipherText                               Key                           Entropy
+---------                                ----------                               ---                           -------
+The choice for mankind lies between      Zls tnsogs wuv sebborj pwvy fkxkvkr      GEORGE               216.636909401074
+freedom and happiness and for the great  lvsvjss ebu nevtwekwy ebu lsx xvv mvkeh
+bulk of mankind happiness is better      sapq st dgrqmbu nevtwekwy mg skxzif
+```
 ## Planned
-- Add support for brute forcing Vigenere ciphers.
+- Increase accuracy of vigenere brute force
+- Increase performance of vigenre brute force
