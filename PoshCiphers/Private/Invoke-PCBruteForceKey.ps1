@@ -116,7 +116,6 @@ Function Invoke-PCBruteForceKey
         }
         #Checks if last best bigram is better then key index zero
         If ($Best.Entropy -lt $Zero.Entropy) { $Key[0] = $Best.Second }
-        Else { $Key[0] = $Zero.First }
     }
     End
     {
