@@ -6,7 +6,6 @@ Function Get-PCBigramEntropy
 
         .Description
         Returns the bigram entropy for the supplied text compared to English bigram frequancies.
-        Bigram frequencies taken from http://practicalcryptography.com/media/cryptanalysis/files/english_bigrams_1.txt and normalized as logarithms.
 
         .Parameter Text
         Text to generate entropy based on.

@@ -6,6 +6,7 @@ Function Get-PCBigramSquare
 
         .Description
         Returns a multidimensional array of bigram logs.
+        Bigram frequencies taken from http://practicalcryptography.com/media/cryptanalysis/files/english_bigrams_1.txt and normalized through logarithms.
 
         .Example
         Get-PCBigramSquare
