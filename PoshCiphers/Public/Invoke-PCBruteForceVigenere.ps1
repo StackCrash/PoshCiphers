@@ -28,23 +28,32 @@ Function Invoke-PCBruteForceVigenere
         .Example
         Invoke-PCBruteForceVigenere -Ciphertext 'Zls tnsogs wuv sebborj pwvy fkxkvkr lvsvjss ebu nevtwekwy ebu lsx xvv mvkeh sapq st dgrqmbu nevtwekwy mg skxzif' -Return 2
 
-        PlainText                                Ciphertext                               Key                           Entropy
-        ---------                                ----------                               ---                           -------
-        The cibmue lor nanaind liet oilwken      Zls tnsogs wuv sebborj pwvy fkxkvkr      GEORFRCMOLGEFEOBGE   210.614486327131
-        greudom and inthitest ant for the heist  lvsvjss ebu nevtwekwy ebu lsx xvv mvkeh
-        hull of cankind inthitest is retter      sapq st dgrqmbu nevtwekwy mg skxzif
-        The choice for mankind lies between      Zls tnsogs wuv sebborj pwvy fkxkvkr      GEORGE               216.636909401074
+        PlainText                                Ciphertext                               Key                                                     Entropy
+        ---------                                ----------                               ---                                                     -------
+        The choice for mankind lies between      Zls tnsogs wuv sebborj pwvy fkxkvkr      GEORGE                                                  184.669755696769
         freedom and happiness and for the great  lvsvjss ebu nevtwekwy ebu lsx xvv mvkeh
         bulk of mankind happiness is better      sapq st dgrqmbu nevtwekwy mg skxzif
+        The cibmue lor nanaind liet oilwken      Zls tnsogs wuv sebborj pwvy fkxkvkr      GEORFRCMOLGEFEOBGE                                      185.186639807148
+        greudom and inthitest ant for the heist  lvsvjss ebu nevtwekwy ebu lsx xvv mvkeh
+        hull of cankind inthitest is retter      sapq st dgrqmbu nevtwekwy mg skxzif
 
         .Example
         Invoke-PCBruteForceVigenere -Ciphertext 'Zls tnsogs wuv sebborj pwvy fkxkvkr lvsvjss ebu nevtwekwy ebu lsx xvv mvkeh sapq st dgrqmbu nevtwekwy mg skxzif' -MaxKeyLength 10
 
-        PlainText                                Ciphertext                               Key                           Entropy
-        ---------                                ----------                               ---                           -------
-        The choice for mankind lies between      Zls tnsogs wuv sebborj pwvy fkxkvkr      GEORGE               216.636909401074
+        PlainText                                Ciphertext                               Key                                                     Entropy
+        ---------                                ----------                               ---                                                     -------
+        The choice for mankind lies between      Zls tnsogs wuv sebborj pwvy fkxkvkr      GEORGE                                                  184.669755696769
         freedom and happiness and for the great  lvsvjss ebu nevtwekwy ebu lsx xvv mvkeh
         bulk of mankind happiness is better      sapq st dgrqmbu nevtwekwy mg skxzif
+
+        .Example
+        Invoke-PCBruteForceVigenere -Ciphertext 'Zls tnsogs wuv sebborj pwvy fkxkvkr lvsvjss ebu nevtwekwy ebu lsx xvv mvkeh sapq st dgrqmbu nevtwekwy mg skxzif' -Strip
+
+        PlainText                                Ciphertext                               Key                                                     Entropy
+        ---------                                ----------                               ---                                                     -------
+        Thechoiceformankindliesbetweenfreedomand Zlstnsogswuvsebborjpwvyfkxkvkrlvsvjssebu GEORGE                                                  184.669755696769
+        happinessandforthegreatbulkofmankindhapp nevtwekwyebulsxxvvmvkehsapqstdgrqmbunevt
+        inessisbetter                            wekwymgskxzif
 
         .NOTES
         The length of the ciphertext is important because shorter ciphertext will increase the chance of an inaccurate result.

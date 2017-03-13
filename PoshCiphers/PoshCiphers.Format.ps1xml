@@ -53,7 +53,7 @@
                         <Alignment>Left</Alignment>
                     </TableColumnHeader>
                     <TableColumnHeader>
-                        <Alignment>Right</Alignment>
+                        <Alignment>Left</Alignment>
                     </TableColumnHeader>
                 </TableHeaders>
                 <TableRowEntries>
@@ -129,7 +129,7 @@
                         <Alignment>Left</Alignment>
                     </TableColumnHeader>
                     <TableColumnHeader>
-                        <Alignment>Right</Alignment>
+                        <Alignment>Left</Alignment>
                     </TableColumnHeader>
                 </TableHeaders>
                 <TableRowEntries>
