@@ -97,4 +97,3 @@ bulk of mankind happiness is better      sapq st dgrqmbu nevtwekwy mg skxzif
 ```
 ## Planned
 - Increase accuracy of vigenere brute force
-- Increase performance of vigenre brute force
