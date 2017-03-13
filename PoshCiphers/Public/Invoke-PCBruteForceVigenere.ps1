@@ -63,7 +63,7 @@ Function Invoke-PCBruteForceVigenere
         [Int] $MinKeyLength = 3,
         [Parameter(Mandatory = $False, Position=2, ValueFromPipeline=$True)]
         [ValidateRange(2,99)]
-        [Int] $MaxKeyLength = 20,
+        [Int] $MaxKeyLength = 30,
         [Parameter(Mandatory = $False, Position=3)]
         [ValidateRange(1,99)]
         [Int] $Return = 1,
@@ -96,15 +96,20 @@ Function Invoke-PCBruteForceVigenere
                 #Remove whitespaces
                 $Message = $Message -replace '\s', ''
             }
-            $Factors = Invoke-PCKasiskiExam -Ciphertext $Message
+            $Factors = Invoke-PCKasiskiExam -Ciphertext $Message | Sort-Object -Property Factor
             #If Kasiski examination returned factors
             If ($Factors)
             {
-                Foreach ($KeyLength in $Factors)
+                #Removes any factors greater than the max key length
+                $Factors = $Factors | Where-Object { [Int]$_.Factor -le $MaxKeyLength }
+                Foreach ($Factor in $Factors)
                 {
+                    $KeyLength = $Factor | Select-Object -ExpandProperty Factor
                     $Key = Invoke-PCBruteForceKey -Ciphertext $Message -KeyLength $KeyLength
                     $PlainText = Invoke-PCVigenereDecipher -Ciphertext $Message -Key $Key | Select-Object -ExpandProperty PlainText
                     $Entropy = Get-PCBigramEntropy -Text $PlainText
+                    #Adjust the entropy based on the factor's weight
+                    $Entropy = $Entropy - $Entropy * $Factor.Weight
 
                     $Result = [PSCustomObject]@{
                         'Plaintext' = $PlainText

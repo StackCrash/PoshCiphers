@@ -95,5 +95,3 @@ The choice for mankind lies between      Zls tnsogs wuv sebborj pwvy fkxkvkr    
 freedom and happiness and for the great  lvsvjss ebu nevtwekwy ebu lsx xvv mvkeh
 bulk of mankind happiness is better      sapq st dgrqmbu nevtwekwy mg skxzif
 ```
-## Planned
-- Increase accuracy of vigenere brute force

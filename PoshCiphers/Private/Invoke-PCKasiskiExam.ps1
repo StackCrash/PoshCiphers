@@ -85,27 +85,44 @@ Function Invoke-PCKasiskiExam
                 $Repeats.Add($Result) | Out-Null
             }
         }
-    }
-    End
-    {
         #Counts how many sets of factors are generated
         $Count = $Repeats | Measure-Object | Select-Object -ExpandProperty Count
+        #$Repeats
+        $Factors = New-Object System.Collections.ArrayList
         If ($Count)
         {
             If ($Count -gt 1)
             {
-                #Returns all factors that repeated more than once
-                Return $Repeats.Factors | Group-Object |
+                #Gets all factors that repeated more than once
+                $CommonFactors = $Repeats.Factors | Group-Object |
                                 Where-Object {$_.Count -gt 1} |
-                                Select-Object -ExpandProperty Name
+                                Select-Object Count,Name
             }
             ElseIf ($Count -eq 1)
             {
-                #Returns the entire set of factors
-                Return $Repeats.Factors | Group-Object |
-                                Select-Object -ExpandProperty Name
+                #Gets the entire set of factors
+                $CommonFactors = $Repeats.Factors | Group-Object |
+                Select-Object Count,Name
             }
         }
-        Else { Return $Null }
+        If ($CommonFactors)
+        {
+            #Gets the total of the factor counts
+            $Total = ($CommonFactors | Select-Object -ExpandProperty Count) -join '+' |
+                    Invoke-Expression
+            ForEach ($Factor in $CommonFactors)
+            {
+                #Creates an object with the factor, its count and a weight multiplier
+                $Factors.Add(([PSCustomObject]@{
+                    'Factor' = $Factor | Select-Object -ExpandProperty Name
+                    'Count' = $Factor | Select-Object -ExpandProperty Count
+                    'Weight' = ($Factor | Select-Object -ExpandProperty Count) / $Total * 1.10
+                })) | Out-Null
+            }
+        }
+    }
+    End
+    {
+        Return $Factors
     }
 }
