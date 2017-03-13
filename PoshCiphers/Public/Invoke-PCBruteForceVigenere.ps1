@@ -96,21 +96,46 @@ Function Invoke-PCBruteForceVigenere
                 #Remove whitespaces
                 $Message = $Message -replace '\s', ''
             }
-            ForEach ($KeyLength in $MinKeyLength..($MaxKeyLength + 1))
+            $Factors = Invoke-PCKasiskiExam -Ciphertext $Message
+            #If Kasiski examination returned factors
+            If ($Factors)
             {
-                $Key = Invoke-PCBruteForceKey -Ciphertext $Message -KeyLength $KeyLength
-                $PlainText = Invoke-PCVigenereDecipher -Ciphertext $Message -Key $Key | Select-Object -ExpandProperty PlainText
-                $Entropy = Get-PCBigramEntropy -Text $PlainText
+                Foreach ($KeyLength in $Factors)
+                {
+                    $Key = Invoke-PCBruteForceKey -Ciphertext $Message -KeyLength $KeyLength
+                    $PlainText = Invoke-PCVigenereDecipher -Ciphertext $Message -Key $Key | Select-Object -ExpandProperty PlainText
+                    $Entropy = Get-PCBigramEntropy -Text $PlainText
 
-                $Result = [PSCustomObject]@{
-                    'Plaintext' = $PlainText
-                    'Ciphertext' = $Message
-                    'Key' = $Key
-                    'Entropy' = $Entropy
+                    $Result = [PSCustomObject]@{
+                        'Plaintext' = $PlainText
+                        'Ciphertext' = $Message
+                        'Key' = $Key
+                        'Entropy' = $Entropy
+                    }
+                    $Result.PSObject.TypeNames.Insert(0,'PoshCiphers.Vigenere.Brute')
+                    #Add results to a the $DecipheredArray
+                    $DecipheredArray.Add($Result) | Out-Null
                 }
-                $Result.PSObject.TypeNames.Insert(0,'PoshCiphers.Vigenere.Brute')
-                #Add results to a the $DecipheredArray
-                $DecipheredArray.Add($Result) | Out-Null
+            }
+            #If Kasiski examination did not return factors
+            Else
+            {
+                ForEach ($KeyLength in $MinKeyLength..($MaxKeyLength + 1))
+                {
+                    $Key = Invoke-PCBruteForceKey -Ciphertext $Message -KeyLength $KeyLength
+                    $PlainText = Invoke-PCVigenereDecipher -Ciphertext $Message -Key $Key | Select-Object -ExpandProperty PlainText
+                    $Entropy = Get-PCBigramEntropy -Text $PlainText
+
+                    $Result = [PSCustomObject]@{
+                        'Plaintext' = $PlainText
+                        'Ciphertext' = $Message
+                        'Key' = $Key
+                        'Entropy' = $Entropy
+                    }
+                    $Result.PSObject.TypeNames.Insert(0,'PoshCiphers.Vigenere.Brute')
+                    #Add results to a the $DecipheredArray
+                    $DecipheredArray.Add($Result) | Out-Null
+                }
             }
             #Add the number of desired returns after sorting the $DecipheredArray
            $DecipheredMessages.Add(($DecipheredArray | Sort-Object -Property Entropy | Select-Object -First $Return)) | Out-Null
