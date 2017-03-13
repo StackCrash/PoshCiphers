@@ -7,7 +7,7 @@ Function Invoke-PCBruteForceVigenere
         .Description
         Brute forces the best vigenere cipher key for a given keylength range.
 
-        .Parameter CipherText
+        .Parameter Ciphertext
         Ciphertext to brute force the key from.
 
         .Parameter MinKeyLength
@@ -26,9 +26,9 @@ Function Invoke-PCBruteForceVigenere
         Removes whitespaces from the ciphertext message(s).
 
         .Example
-        Invoke-PCBruteForceVigenere -CipherText 'Zls tnsogs wuv sebborj pwvy fkxkvkr lvsvjss ebu nevtwekwy ebu lsx xvv mvkeh sapq st dgrqmbu nevtwekwy mg skxzif' -Return 2
+        Invoke-PCBruteForceVigenere -Ciphertext 'Zls tnsogs wuv sebborj pwvy fkxkvkr lvsvjss ebu nevtwekwy ebu lsx xvv mvkeh sapq st dgrqmbu nevtwekwy mg skxzif' -Return 2
 
-        PlainText                                CipherText                               Key                           Entropy
+        PlainText                                Ciphertext                               Key                           Entropy
         ---------                                ----------                               ---                           -------
         The cibmue lor nanaind liet oilwken      Zls tnsogs wuv sebborj pwvy fkxkvkr      GEORFRCMOLGEFEOBGE   210.614486327131
         greudom and inthitest ant for the heist  lvsvjss ebu nevtwekwy ebu lsx xvv mvkeh
@@ -38,9 +38,9 @@ Function Invoke-PCBruteForceVigenere
         bulk of mankind happiness is better      sapq st dgrqmbu nevtwekwy mg skxzif
 
         .Example
-        Invoke-PCBruteForceVigenere -CipherText 'Zls tnsogs wuv sebborj pwvy fkxkvkr lvsvjss ebu nevtwekwy ebu lsx xvv mvkeh sapq st dgrqmbu nevtwekwy mg skxzif' -MaxKeyLength 10
+        Invoke-PCBruteForceVigenere -Ciphertext 'Zls tnsogs wuv sebborj pwvy fkxkvkr lvsvjss ebu nevtwekwy ebu lsx xvv mvkeh sapq st dgrqmbu nevtwekwy mg skxzif' -MaxKeyLength 10
 
-        PlainText                                CipherText                               Key                           Entropy
+        PlainText                                Ciphertext                               Key                           Entropy
         ---------                                ----------                               ---                           -------
         The choice for mankind lies between      Zls tnsogs wuv sebborj pwvy fkxkvkr      GEORGE               216.636909401074
         freedom and happiness and for the great  lvsvjss ebu nevtwekwy ebu lsx xvv mvkeh
@@ -57,7 +57,7 @@ Function Invoke-PCBruteForceVigenere
     Param
     (
         [Parameter(Mandatory = $True, Position=0, ValueFromPipeline=$True)]
-        [String[]] $CipherText,
+        [String[]] $Ciphertext,
         [Parameter(Mandatory = $False, Position=1, ValueFromPipeline=$True)]
         [ValidateRange(2,99)]
         [Int] $MinKeyLength = 3,
@@ -98,8 +98,8 @@ Function Invoke-PCBruteForceVigenere
             }
             ForEach ($KeyLength in $MinKeyLength..($MaxKeyLength + 1))
             {
-                $Key = Invoke-PCBruteForceKey -CipherText $Message -KeyLength $KeyLength
-                $PlainText = Invoke-PCVigenereDecipher -CipherText $Message -Key $Key | Select-Object -ExpandProperty PlainText
+                $Key = Invoke-PCBruteForceKey -Ciphertext $Message -KeyLength $KeyLength
+                $PlainText = Invoke-PCVigenereDecipher -Ciphertext $Message -Key $Key | Select-Object -ExpandProperty PlainText
                 $Entropy = Get-PCBigramEntropy -Text $PlainText
 
                 $Result = [PSCustomObject]@{

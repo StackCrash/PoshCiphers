@@ -7,14 +7,14 @@ Function Invoke-PCBruteForceKey
         .Description
         Brute forces the best vigenere cipher key for a given keylength.
 
-        .Parameter CipherText
+        .Parameter Ciphertext
         Ciphertext to brute force the key from.
 
         .Parameter KeyLength
         Key length to brute force
 
         .Example
-        Invoke-PCBruteForceKey -CipherText 'TpczwxviXzkxfitvgkwevvhtnitpwbetnvgbhlgixasxkjqhvitrxxdcfzjyagwcxygvcecnfmpkigvifgeklmgjxhvieztawv' -KeyLength 6
+        Invoke-PCBruteForceKey -Ciphertext 'TpczwxviXzkxfitvgkwevvhtnitpwbetnvgbhlgixasxkjqhvitrxxdcfzjyagwcxygvcecnfmpkigvifgeklmgjxhvieztawv' -KeyLength 6
         SECRET
 
         .NOTES
@@ -24,7 +24,7 @@ Function Invoke-PCBruteForceKey
     Param
     (
         [Parameter(Mandatory = $True, Position=0, ValueFromPipeline=$True)]
-        [String] $CipherText,
+        [String] $Ciphertext,
         [Parameter(Mandatory = $True, Position=1, ValueFromPipeline=$True)]
         [ValidateRange(2,99)]
         [Int] $KeyLength
@@ -32,7 +32,7 @@ Function Invoke-PCBruteForceKey
     Begin
     {
         #Remove anything that is not a letter
-        $CipherText = [Regex]::Replace($CipherText,'[^a-zA-Z]','').ToUpper()
+        $Ciphertext = [Regex]::Replace($Ciphertext,'[^a-zA-Z]','').ToUpper()
         #Array list to store the key in
         $Key = New-Object System.Collections.ArrayList
         #Bigram square with entropy values to use when generating entropy
@@ -66,13 +66,13 @@ Function Invoke-PCBruteForceKey
                     $Filter = Get-PCVigenereFilter -Key $Bigram | ForEach-Object { (26 - $_) % 26 }
                     
                     #Generates the starting indexes for the current key index
-                    $Sequence = For ($i = $KeyIndex; $i -lt ($CipherText.Length - 1); $i += $KeyLength) { $i }
+                    $Sequence = For ($i = $KeyIndex; $i -lt ($Ciphertext.Length - 1); $i += $KeyLength) { $i }
                     ForEach ($Index in $Sequence)
                     {
                         #Gets the plaintext value for the first part of the bigram at a given index
-                        $FirstPlain = ([Byte]$CipherText[$Index] - 65 + $Filter[0]) % 26
+                        $FirstPlain = ([Byte]$Ciphertext[$Index] - 65 + $Filter[0]) % 26
                         #Gets the plaintext value for the second part of the bigram at a given index
-                        $SecondPlain = ([Byte]$CipherText[$Index + 1] - 65 + $Filter[1]) % 26
+                        $SecondPlain = ([Byte]$Ciphertext[$Index + 1] - 65 + $Filter[1]) % 26
                         #Adds the entropy for the plaintext bigram to the key bigram's entropy
                         $Entropy += $BigramSqaure[$FirstPlain][$SecondPlain]
                     }

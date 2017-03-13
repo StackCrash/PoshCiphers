@@ -74,9 +74,9 @@ Example   Ohkwzvo          10 24.0221984573182
 ### Vigenere
 As with Caesar the longer the ciphertext the more likely it is to return and accurate results. Additionally, the maximum key length also plays into the more accuracy of results.
 ```powershell
-Invoke-PCBruteForceVigenere -CipherText 'Zls tnsogs wuv sebborj pwvy fkxkvkr lvsvjss ebu nevtwekwy ebu lsx xvv mvkeh sapq st dgrqmbu nevtwekwy mg skxzif' -Return 2
+Invoke-PCBruteForceVigenere -Ciphertext 'Zls tnsogs wuv sebborj pwvy fkxkvkr lvsvjss ebu nevtwekwy ebu lsx xvv mvkeh sapq st dgrqmbu nevtwekwy mg skxzif' -Return 2
 
-PlainText                                CipherText                               Key                           Entropy
+PlainText                                Ciphertext                               Key                           Entropy
 ---------                                ----------                               ---                           -------
 The cibmue lor nanaind liet oilwken      Zls tnsogs wuv sebborj pwvy fkxkvkr      GEORFRCMOLGEFEOBGE   210.614486327131
 greudom and inthitest ant for the heist  lvsvjss ebu nevtwekwy ebu lsx xvv mvkeh
@@ -87,9 +87,9 @@ bulk of mankind happiness is better      sapq st dgrqmbu nevtwekwy mg skxzif
 ```
 When lowering the max key length it can eliminate inaccurate results that occur when the key length tested is significantly longer than the actual key.
 ```powershell
-Invoke-PCBruteForceVigenere -CipherText 'Zls tnsogs wuv sebborj pwvy fkxkvkr lvsvjss ebu nevtwekwy ebu lsx xvv mvkeh sapq st dgrqmbu nevtwekwy mg skxzif' -MaxKeyLength 10
+Invoke-PCBruteForceVigenere -Ciphertext 'Zls tnsogs wuv sebborj pwvy fkxkvkr lvsvjss ebu nevtwekwy ebu lsx xvv mvkeh sapq st dgrqmbu nevtwekwy mg skxzif' -MaxKeyLength 10
 
-PlainText                                CipherText                               Key                           Entropy
+PlainText                                Ciphertext                               Key                           Entropy
 ---------                                ----------                               ---                           -------
 The choice for mankind lies between      Zls tnsogs wuv sebborj pwvy fkxkvkr      GEORGE               216.636909401074
 freedom and happiness and for the great  lvsvjss ebu nevtwekwy ebu lsx xvv mvkeh

@@ -26,7 +26,7 @@
                                 <PropertyName>PlainText</PropertyName>
                             </TableColumnItem>
                             <TableColumnItem>
-                                <PropertyName>CipherText</PropertyName>
+                                <PropertyName>Ciphertext</PropertyName>
                             </TableColumnItem>
                             <TableColumnItem>
                                 <PropertyName>Key</PropertyName>
@@ -64,7 +64,7 @@
                                 <PropertyName>PlainText</PropertyName>
                             </TableColumnItem>
                             <TableColumnItem>
-                                <PropertyName>CipherText</PropertyName>
+                                <PropertyName>Ciphertext</PropertyName>
                             </TableColumnItem>
                             <TableColumnItem>
                                 <PropertyName>Key</PropertyName>
@@ -102,7 +102,7 @@
                                 <PropertyName>PlainText</PropertyName>
                             </TableColumnItem>
                             <TableColumnItem>
-                                <PropertyName>CipherText</PropertyName>
+                                <PropertyName>Ciphertext</PropertyName>
                             </TableColumnItem>
                             <TableColumnItem>
                                 <PropertyName>Rotation</PropertyName>
@@ -140,7 +140,7 @@
                                 <PropertyName>PlainText</PropertyName>
                             </TableColumnItem>
                             <TableColumnItem>
-                                <PropertyName>CipherText</PropertyName>
+                                <PropertyName>Ciphertext</PropertyName>
                             </TableColumnItem>
                             <TableColumnItem>
                                 <PropertyName>Rotation</PropertyName>
