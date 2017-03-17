@@ -42,6 +42,8 @@ Function Invoke-PCCaesarDecipher
         [Parameter(Mandatory = $False, Position=1)]
         [ValidateRange(1,25)]
         [Int] $Rotation = 13,
+        [Parameter(Mandatory = $False, Position=2)]
+        [String] $Spacing = 0,
         [Parameter(Mandatory = $False)]
         [Switch]$Strip
     )
@@ -75,9 +77,18 @@ Function Invoke-PCCaesarDecipher
                     #Pass through symbols and numbers
                     Default { $Deciphered.Add($Character) | Out-Null }
                 }
+            }#Join the results of the decipher
+            $Plaintext = $Deciphered -join ""
+            #Check is spacing is used
+            If ($Spacing -ge 1)
+            {
+                #Remove existing whitespaces
+                $Plaintext = $Plaintext -replace '\s', ''
+                #Split the plaintext into the desired spacing
+                $Plaintext = ([RegEx]::Matches($Plaintext, ".{1,$Spacing}") | ForEach-Object { $_.Value }) -join ' '
             }
             $Result = [PSCustomObject]@{
-                'Plaintext' = $Deciphered -join ""
+                'Plaintext' = $Plaintext
                 'Ciphertext' = $Message
                 'Rotation' = $Rotation
             }

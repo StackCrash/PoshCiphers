@@ -1,5 +1,5 @@
 # PoshCiphers
-Powershell module for enciphering and deciphering common Caesar (Rotation) ciphers.
+PowerShell module for enciphering and deciphering Caesar, Vigenere, and Substitution ciphers. The module will also brute force Caesar and Vigenere ciphers.
 
 ## Install
 * Clone the repo
@@ -19,6 +19,15 @@ Plaintext Ciphertext Rotation
 Example   Rknzcyr          13
 ```
 
+#### Substitution
+```powershell
+Invoke-PCSubEncipher -Plaintext "Example"
+
+PlainText         Ciphertext         Substitution
+---------         ----------         ------------
+Example           Ixtvksi            TYNFIRMBHEGSVULKWQJDPACXO
+```
+
 #### Vigenere
 ```powershell
 Invoke-PCVigenereEncipher -Plaintext "Example" -Key "password"
@@ -36,6 +45,15 @@ Invoke-PCCaesarDecipher -Ciphertext "Rknzcyr" -Rotation 13
 Plaintext Ciphertext Rotation
 --------- ---------- --------
 Example   Rknzcyr          13
+```
+
+#### Substitution
+```powershell
+Invoke-PCSubDecipher -Ciphertext "Ixtvksi" -Substitution "TYNFIRMBHEGSVULKWQJDPACXO"
+
+PlainText         Ciphertext         Substitution
+---------         ----------         ------------
+Example           Ixtvksi            TYNFIRMBHEGSVULKWQJDPACXO
 ```
 
 #### Vigenere

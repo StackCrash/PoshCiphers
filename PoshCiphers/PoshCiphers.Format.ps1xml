@@ -23,7 +23,7 @@
                         <Wrap />
                         <TableColumnItems>
                             <TableColumnItem>
-                                <PropertyName>PlainText</PropertyName>
+                                <PropertyName>Plaintext</PropertyName>
                             </TableColumnItem>
                             <TableColumnItem>
                                 <PropertyName>Ciphertext</PropertyName>
@@ -61,7 +61,7 @@
                         <Wrap />
                         <TableColumnItems>
                             <TableColumnItem>
-                                <PropertyName>PlainText</PropertyName>
+                                <PropertyName>Plaintext</PropertyName>
                             </TableColumnItem>
                             <TableColumnItem>
                                 <PropertyName>Ciphertext</PropertyName>
@@ -99,7 +99,7 @@
                         <Wrap />
                         <TableColumnItems>
                             <TableColumnItem>
-                                <PropertyName>PlainText</PropertyName>
+                                <PropertyName>Plaintext</PropertyName>
                             </TableColumnItem>
                             <TableColumnItem>
                                 <PropertyName>Ciphertext</PropertyName>
@@ -137,7 +137,7 @@
                         <Wrap />
                         <TableColumnItems>
                             <TableColumnItem>
-                                <PropertyName>PlainText</PropertyName>
+                                <PropertyName>Plaintext</PropertyName>
                             </TableColumnItem>
                             <TableColumnItem>
                                 <PropertyName>Ciphertext</PropertyName>
@@ -147,6 +147,41 @@
                             </TableColumnItem>
                             <TableColumnItem>
                                 <PropertyName>Entropy</PropertyName>
+                            </TableColumnItem>
+                        </TableColumnItems>
+                    </TableRowEntry>
+                </TableRowEntries>
+            </TableControl>
+        </View>
+        <View>
+            <Name>Default</Name>
+            <ViewSelectedBy>
+                <TypeName>PoshCiphers.Substitution</TypeName>
+            </ViewSelectedBy>
+            <TableControl>
+                <TableHeaders>
+                    <TableColumnHeader>
+                        <Width>40</Width>
+                    </TableColumnHeader>
+                    <TableColumnHeader>
+                        <Width>40</Width>
+                    </TableColumnHeader>
+                    <TableColumnHeader>
+                        <Alignment>Left</Alignment>
+                    </TableColumnHeader>
+                </TableHeaders>
+                <TableRowEntries>
+                    <TableRowEntry>
+                        <Wrap />
+                        <TableColumnItems>
+                            <TableColumnItem>
+                                <PropertyName>Plaintext</PropertyName>
+                            </TableColumnItem>
+                            <TableColumnItem>
+                                <PropertyName>Ciphertext</PropertyName>
+                            </TableColumnItem>
+                            <TableColumnItem>
+                                <PropertyName>Substitution</PropertyName>
                             </TableColumnItem>
                         </TableColumnItems>
                     </TableRowEntry>

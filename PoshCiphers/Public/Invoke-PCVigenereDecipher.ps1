@@ -41,6 +41,8 @@ Function Invoke-PCVigenereDecipher
         [String[]] $Ciphertext,
         [Parameter(Mandatory = $True, Position=1)]
         [String] $Key,
+        [Parameter(Mandatory = $False, Position=2)]
+        [String] $Spacing = 0,
         [Parameter(Mandatory = $False)]
         [Switch]$Strip
     )
@@ -86,9 +88,18 @@ Function Invoke-PCVigenereDecipher
                     #Pass through symbols and numbers
                     Default { $Deciphered.Add($Character) | Out-Null }
                 }
+            }#Join the results of the decipher
+            $Plaintext = $Deciphered -join ""
+            #Check is spacing is used
+            If ($Spacing -ge 1)
+            {
+                #Remove existing whitespaces
+                $Plaintext = $Plaintext -replace '\s', ''
+                #Split the plaintext into the desired spacing
+                $Plaintext = ([RegEx]::Matches($Plaintext, ".{1,$Spacing}") | ForEach-Object { $_.Value }) -join ' '
             }
             $Result = [PSCustomObject]@{
-                'Plaintext' = $Deciphered -join ""
+                'Plaintext' = $Plaintext
                 'Ciphertext' = $Message
                 'Key' = $Key
             }
