@@ -116,7 +116,7 @@ Function Invoke-PCBruteForceVigenere
                     $KeyLength = $Factor | Select-Object -ExpandProperty Factor
                     $Key = Invoke-PCBruteForceKey -Ciphertext $Message -KeyLength $KeyLength
                     $PlainText = Invoke-PCVigenereDecipher -Ciphertext $Message -Key $Key | Select-Object -ExpandProperty PlainText
-                    $Entropy = Get-PCBigramEntropy -Text $PlainText
+                    $Entropy = Get-PCBigramEntropy -Plaintext $PlainText
                     #Adjust the entropy based on the factor's weight
                     $Entropy = $Entropy - $Entropy * $Factor.Weight
 
@@ -138,7 +138,7 @@ Function Invoke-PCBruteForceVigenere
                 {
                     $Key = Invoke-PCBruteForceKey -Ciphertext $Message -KeyLength $KeyLength
                     $PlainText = Invoke-PCVigenereDecipher -Ciphertext $Message -Key $Key | Select-Object -ExpandProperty PlainText
-                    $Entropy = Get-PCBigramEntropy -Text $PlainText
+                    $Entropy = Get-PCBigramEntropy -Plaintext $PlainText
 
                     $Result = [PSCustomObject]@{
                         'Plaintext' = $PlainText

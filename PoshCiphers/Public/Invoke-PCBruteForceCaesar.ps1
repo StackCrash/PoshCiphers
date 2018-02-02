@@ -86,7 +86,7 @@ Function Invoke-PCBruteForceCaesar
             ForEach ($Text in $Deciphered)
             {
                 #Get the bigram entropy for the plaintext
-                $Entropy = (Get-PCBigramEntropy -Text $($Text | Select-Object -ExpandProperty Plaintext))
+                $Entropy = (Get-PCBigramEntropy -Plaintext $($Text | Select-Object -ExpandProperty Plaintext))
                 
                 $Result = [PSCustomObject]@{
                     'Plaintext' = $Text | Select-Object -ExpandProperty Plaintext
