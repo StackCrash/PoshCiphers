@@ -76,7 +76,7 @@ Function Invoke-PCSubEncipher
                 Write-Error "The Substitution must be a unique ordering of the English alphabet."
             }
             #Make sure the substitution alphabet is the correct length
-            If ($Substitution.ToUpper().ToCharArray().Count -ne 25)
+            If ($Substitution.ToUpper().ToCharArray().Count -ne 26)
             {
                 Write-Error "The Substitution does not contain 26 unique letters."
             }
